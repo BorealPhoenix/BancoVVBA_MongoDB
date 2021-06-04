@@ -8,5 +8,5 @@ public interface CuentaDAO {
     boolean anadirCuentaABaseDatos(Cuenta cuenta);
     boolean modificarCuentaBaseDatos(Cuenta cuenta);
     boolean eliminarCuentaBaseDatos(int id);
-    List<Cuenta> listarTodasLasCuentas (Cuenta cuenta);
+    List<Cuenta> listarTodasLasCuentas ();
 }

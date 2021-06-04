@@ -26,7 +26,7 @@ public class Conexion {
         }
     }
 
-    public Connection getConexion() {
+    public  Connection getConexion() {
         return dataBase;
     }
 
@@ -37,8 +37,8 @@ public class Conexion {
         return conexion;
     }
 
-    public static void main(String args[]) {
+   /* public static void main(String args[]) {
         Conexion conexion = new Conexion();
         System.out.println(conexion);
-    }
+    }*/
 }

@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Cuenta {
     //Atributos
+    private String id;
     private String iban;
     private double creditCard;
     private double balance;
@@ -11,7 +12,8 @@ public class Cuenta {
     private String date;
 
     //Constructor
-    public Cuenta(String iban, double creditCard, double balance, String fullName, String fecha) {
+    public Cuenta(String id, String iban, double creditCard, double balance, String fullName, String fecha) {
+        this.id=id;
         this.iban = iban;
         this.creditCard = creditCard;
         this.balance = balance;
@@ -24,6 +26,10 @@ public class Cuenta {
     }
 
     //getters
+
+    public String getId() {
+        return id;
+    }
 
     public String getIban() {
         return iban;
