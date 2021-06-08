@@ -10,10 +10,7 @@ import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class CuentaDAOSQL implements CuentaDAO{
@@ -21,6 +18,7 @@ public class CuentaDAOSQL implements CuentaDAO{
     private static MongoCollection<Document> collection;
     private static FindIterable<Document> iterDoc;
     private static Iterator it;
+    private static  List<Cuenta> cuentaList = new ArrayList<>();
     static {
         try {
          //   System.out.println(Conexion.getInstance().getDataBase());
@@ -43,13 +41,21 @@ public class CuentaDAOSQL implements CuentaDAO{
     }
 
     @Override
-    public boolean eliminarCuentaBaseDatos(int id) {
+    public boolean eliminarCuentaBaseDatos(ObjectId id) {
+        collection.find().forEach((Consumer<Document>) (Document document) ->
+        {
+         ObjectId idBaseDatos = document.getObjectId("_id");
+         if (id == idBaseDatos){
+             //eliminamos la cuenta
+         }
+        });
+
         return false;
     }
 
     @Override
     public List<Cuenta> listarTodasLasCuentas() {
-        List<Cuenta> cuentaList = new ArrayList<>();
+
         collection.find().forEach((Consumer<Document>) (Document document) ->
         {
 
@@ -68,10 +74,24 @@ public class CuentaDAOSQL implements CuentaDAO{
         return cuentaList;
     }
 
-   public static void main(String[] args) {
+    public static List<Cuenta> settearIdCUenta(){
+        List<Cuenta> cuentaListMapeada = new ArrayList<>();
+        Map<Integer, ObjectId> map = new HashMap<>();
+
+        for (int i = 0; i < cuentaList.size(); i++) {
+            ObjectId id;
+
+    //    cuentaList.get(i).setId();
+
+        }
+
+        return cuentaListMapeada;
+
+    }
+  /* public static void main(String[] args) {
             CuentaDAO cuentaDAO = new CuentaDAOSQL();
             System.out.println(cuentaDAO.listarTodasLasCuentas());
 
-   }
+   }*/
 
 }
