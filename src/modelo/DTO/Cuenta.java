@@ -1,18 +1,20 @@
 package modelo.DTO;
 
+import org.bson.types.ObjectId;
+
 import java.util.Objects;
 
 public class Cuenta {
     //Atributos
-    private String id;
+    private ObjectId id;
     private String iban;
-    private double creditCard;
+    private String creditCard;
     private double balance;
     private String fullName;
     private String date;
 
     //Constructor
-    public Cuenta(String id, String iban, double creditCard, double balance, String fullName, String fecha) {
+    public Cuenta(ObjectId id, String iban, String creditCard, double balance, String fullName, String fecha) {
         this.id=id;
         this.iban = iban;
         this.creditCard = creditCard;
@@ -22,12 +24,18 @@ public class Cuenta {
     }
 
     //Constructor vacio
-    public Cuenta() {
+    public Cuenta(String iban, String creditCard, double balance, String fullName, String date) {
+        this.iban = iban;
+        this.creditCard = creditCard;
+        this.balance = balance;
+        this.fullName = fullName;
+        this.date = date;
     }
+
 
     //getters
 
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
@@ -35,7 +43,7 @@ public class Cuenta {
         return iban;
     }
 
-    public double getCreditCard() {
+    public String getCreditCard() {
         return creditCard;
     }
 
@@ -55,7 +63,7 @@ public class Cuenta {
 
     @Override
     public String toString() {
-        return String.format("%s, %.2f, %.2f, %s, %s",
+        return String.format("%s ,%s, %s, %.2f, %s, %s",id,
                 iban, creditCard, balance, fullName, date);
     }
 

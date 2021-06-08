@@ -10,7 +10,16 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/JAR Mongo/mongo-java-driver-3.12.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/JAR/gson-2.8.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/JAR/mongo-java-driver-3.12.7.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

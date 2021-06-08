@@ -1,18 +1,34 @@
 package modelo.DAO;
 
 import Conexion.Conexion;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import modelo.DTO.Cuenta;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CuentaDAOSQL implements CuentaDAO{
-    private Connection conexion = (Connection) Conexion.getInstance();
-
-    public CuentaDAOSQL() throws SQLException, IOException {
+    private  static MongoDatabase database;
+    private static MongoCollection<Document> collection;
+    private static FindIterable<Document> iterDoc;
+    private static Iterator it;
+    static {
+        try {
+         //   System.out.println(Conexion.getInstance().getDataBase());
+            database = Conexion.getInstance().getDataBase();
+           collection = database.getCollection("accounts");
+        } catch (SQLException | IOException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
 
@@ -34,28 +50,28 @@ public class CuentaDAOSQL implements CuentaDAO{
     @Override
     public List<Cuenta> listarTodasLasCuentas() {
         List<Cuenta> cuentaList = new ArrayList<>();
-        String [] recogedor = conexion.toString().split("^=*,");
-        String id = recogedor[0];
-        String iban= recogedor[1];
-        Double creditBalance= Double.parseDouble(recogedor[2]);
-        Double balance= Double.parseDouble(recogedor[3]);
-        String fullName= recogedor[4];
-        String date = recogedor[5];
-        Cuenta cuenta1 = new Cuenta(id, iban, creditBalance
-        , balance, fullName, date);
-        cuentaList.add(cuenta1);
+        collection.find().forEach((Consumer<Document>) (Document document) ->
+        {
+
+            ObjectId id = document.getObjectId("_id");
+            String iban = document.getString("iban");
+            String creditCard = document.getString("creditCard");
+            Double balance = document.getDouble("balance");
+            String fullName= document.getString("fullName");
+            String date = document.getString("date");
+            Cuenta cuenta = new Cuenta(id, iban, creditCard, balance, fullName,
+                    date);
+          //  System.out.println(cuenta);
+            cuentaList.add(cuenta);
+        });
+
         return cuentaList;
     }
 
-   /* public static void main(String[] args) {
-        try {
+   public static void main(String[] args) {
             CuentaDAO cuentaDAO = new CuentaDAOSQL();
             System.out.println(cuentaDAO.listarTodasLasCuentas());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
+
+   }
 
 }
