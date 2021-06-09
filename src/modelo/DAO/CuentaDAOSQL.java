@@ -4,14 +4,16 @@ import Conexion.Conexion;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import controlador.Controlador;
 import modelo.DTO.Cuenta;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.function.Consumer;
+
 
 public class CuentaDAOSQL implements CuentaDAO{
     private  static MongoDatabase database;
@@ -19,6 +21,7 @@ public class CuentaDAOSQL implements CuentaDAO{
     private static FindIterable<Document> iterDoc;
     private static Iterator it;
     private static  List<Cuenta> cuentaList = new ArrayList<>();
+    public static Controlador controlador;
     static {
         try {
          //   System.out.println(Conexion.getInstance().getDataBase());
@@ -31,24 +34,28 @@ public class CuentaDAOSQL implements CuentaDAO{
 
 
     @Override
-    public boolean anadirCuentaABaseDatos(Cuenta cuenta) {
+    public boolean anadirCuentaABaseDatos() {
+        Document doc = new Document();
+        Cuenta cuenta;
         return false;
     }
 
     @Override
-    public boolean modificarCuentaBaseDatos(Cuenta cuenta) {
+    public boolean modificarCuentaBaseDatos() {
         return false;
     }
 
     @Override
-    public boolean eliminarCuentaBaseDatos(ObjectId id) {
-        collection.find().forEach((Consumer<Document>) (Document document) ->
-        {
-         ObjectId idBaseDatos = document.getObjectId("_id");
-         if (id == idBaseDatos){
-             //eliminamos la cuenta
-         }
-        });
+    public boolean eliminarCuentaBaseDatos(String id) {
+        for (Cuenta cuenta:cuentaList) {
+            if (cuenta.getId().toString().equals(id)){
+                cuentaList.remove(cuenta);
+                System.out.println("Account deleted successfully...");
+                collection.deleteOne(Filters.eq("_id", id));
+                System.out.println("Document deleted successfully...");
+                return true;
+            }
+        }
 
         return false;
     }
@@ -74,21 +81,7 @@ public class CuentaDAOSQL implements CuentaDAO{
         return cuentaList;
     }
 
-    public static List<Cuenta> settearIdCUenta(){
-        List<Cuenta> cuentaListMapeada = new ArrayList<>();
-        Map<Integer, ObjectId> map = new HashMap<>();
-
-        for (int i = 0; i < cuentaList.size(); i++) {
-            ObjectId id;
-
-    //    cuentaList.get(i).setId();
-
-        }
-
-        return cuentaListMapeada;
-
-    }
-  /* public static void main(String[] args) {
+   /*public static void main(String[] args) {
             CuentaDAO cuentaDAO = new CuentaDAOSQL();
             System.out.println(cuentaDAO.listarTodasLasCuentas());
 

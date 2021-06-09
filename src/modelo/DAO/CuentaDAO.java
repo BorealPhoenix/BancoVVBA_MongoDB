@@ -6,8 +6,8 @@ import org.bson.types.ObjectId;
 import java.util.List;
 
 public interface CuentaDAO {
-    boolean anadirCuentaABaseDatos(Cuenta cuenta);
-    boolean modificarCuentaBaseDatos(Cuenta cuenta);
-    boolean eliminarCuentaBaseDatos(ObjectId id);
+    boolean anadirCuentaABaseDatos();
+    boolean modificarCuentaBaseDatos();
+    boolean eliminarCuentaBaseDatos(String id);
     List<Cuenta> listarTodasLasCuentas ();
 }

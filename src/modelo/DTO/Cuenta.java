@@ -58,9 +58,6 @@ public class Cuenta {
     public String getDate() {
         return date;
     }
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
 
     //toString
 
