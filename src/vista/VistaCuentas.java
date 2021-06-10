@@ -13,8 +13,19 @@ public class VistaCuentas {
     private JTable mainTable;
     private JButton buttonAdd;
     private JButton buttonDelete;
+    private JPanel addPanel;
+    private JLabel ibanLabel;
+    private JTextField textFieldIBAN;
+    private JLabel creditCardLabel;
+    private JTextField textFieldcreditCard;
+    private JLabel balanceLabel;
+    private JTextField textFieldBalance;
+    private JLabel fullNameLabel;
+    private JTextField textFieldFullName;
+    private JButton buttonCreate;
+    private JButton buttonCancel;
 
-    //Getters de los botones
+    //Getters de los botones y de los TextField y el panel de añadir
         public JButton getButtonAdd() {
             return buttonAdd;
         }
@@ -25,6 +36,34 @@ public class VistaCuentas {
 
         public JTable getMainTable() {
             return mainTable;
+        }
+
+        public JTextField getTextFieldIBAN() {
+            return textFieldIBAN;
+        }
+
+        public JTextField getTextFieldcreditCard() {
+            return textFieldcreditCard;
+        }
+
+        public JTextField getTextFieldBalance() {
+            return textFieldBalance;
+        }
+
+        public JTextField getTextFieldFullName() {
+            return textFieldFullName;
+        }
+
+        public JButton getButtonCreate() {
+            return buttonCreate;
+        }
+
+        public JButton getButtonCancel() {
+            return buttonCancel;
+        }
+
+        public JPanel getAddPanel() {
+            return addPanel;
         }
 
     //Arranque de la ventana principal

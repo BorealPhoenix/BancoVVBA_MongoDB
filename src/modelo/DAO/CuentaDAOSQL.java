@@ -9,6 +9,8 @@ import controlador.Controlador;
 import modelo.DTO.Cuenta;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import vista.VistaCuentas;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
@@ -21,7 +23,8 @@ public class CuentaDAOSQL implements CuentaDAO{
     private static FindIterable<Document> iterDoc;
     private static Iterator it;
     private static  List<Cuenta> cuentaList = new ArrayList<>();
-    public static Controlador controlador;
+    private static Controlador controlador;
+
     static {
         try {
          //   System.out.println(Conexion.getInstance().getDataBase());
@@ -34,10 +37,14 @@ public class CuentaDAOSQL implements CuentaDAO{
 
 
     @Override
-    public boolean anadirCuentaABaseDatos() {
-        Document doc = new Document();
-        Cuenta cuenta;
-        return false;
+    public boolean anadirCuentaABaseDatos(Cuenta cuenta) {
+      int lInicial=  cuentaList.size();
+      cuentaList.add(cuenta);
+        int lFinal=  cuentaList.size();
+        if (lInicial-lFinal!=0){
+            System.out.println("Added new account to the list successfully");
+        }
+        return lInicial-lFinal!=0;
     }
 
     @Override
@@ -52,11 +59,15 @@ public class CuentaDAOSQL implements CuentaDAO{
         long ultimo=0;
         for (Cuenta cuenta:cuentaList) {
             if (cuenta.getId().toString().equals(id)){
+
+                //Borrado de la lista de cuentas
                 cuentaList.remove(cuenta);
                 int listaFinal= cuentaList.size();
                 if (listaInicial-listaFinal!=0){
                     System.out.println("Eliminado correctamente de la lista de cuentas");
                 } else System.out.println("Fallo al eliminar de la Lista");
+
+                //Borrado de la BD
                 collection.deleteOne(new Document("_id", new ObjectId(id)));
                 ultimo = collection.countDocuments();
                 if (inicial-ultimo!=0){
