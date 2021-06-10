@@ -68,7 +68,6 @@ public class Cuenta {
     }
 
     //equals y hashccode
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

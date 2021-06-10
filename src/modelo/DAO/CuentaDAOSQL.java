@@ -47,17 +47,25 @@ public class CuentaDAOSQL implements CuentaDAO{
 
     @Override
     public boolean eliminarCuentaBaseDatos(String id) {
+        long inicial = collection.countDocuments();
+        int listaInicial = cuentaList.size();
+        long ultimo=0;
         for (Cuenta cuenta:cuentaList) {
             if (cuenta.getId().toString().equals(id)){
                 cuentaList.remove(cuenta);
-                System.out.println("Account deleted successfully...");
-                collection.deleteOne(Filters.eq("_id", id));
-                System.out.println("Document deleted successfully...");
-                return true;
+                int listaFinal= cuentaList.size();
+                if (listaInicial-listaFinal!=0){
+                    System.out.println("Eliminado correctamente de la lista de cuentas");
+                } else System.out.println("Fallo al eliminar de la Lista");
+                collection.deleteOne(new Document("_id", new ObjectId(id)));
+                ultimo = collection.countDocuments();
+                if (inicial-ultimo!=0){
+                    System.out.println("Eliminado Correctamente de la BD");
+                } else System.out.println("Fallo al eliminar de la BD");
+                break;
             }
         }
-
-        return false;
+        return inicial-ultimo !=0;
     }
 
     @Override
@@ -65,7 +73,6 @@ public class CuentaDAOSQL implements CuentaDAO{
 
         collection.find().forEach((Consumer<Document>) (Document document) ->
         {
-
             ObjectId id = document.getObjectId("_id");
             String iban = document.getString("iban");
             String creditCard = document.getString("creditCard");
@@ -80,11 +87,5 @@ public class CuentaDAOSQL implements CuentaDAO{
 
         return cuentaList;
     }
-
-   /*public static void main(String[] args) {
-            CuentaDAO cuentaDAO = new CuentaDAOSQL();
-            System.out.println(cuentaDAO.listarTodasLasCuentas());
-
-   }*/
 
 }

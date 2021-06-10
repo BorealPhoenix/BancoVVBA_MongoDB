@@ -2,17 +2,20 @@ package controlador;
 
 import modelo.DAO.CuentaDAOSQL;
 import modelo.DTO.Cuenta;
+import org.bson.types.ObjectId;
 import vista.VistaCuentas;
 
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import java.util.List;
 
 public class Controlador {
     //Atributos
     private ModeloTabla modelo;
     private VistaCuentas vista;
     private TableRowSorter<TableModel> sorter;
-
+    private CuentaDAOSQL cuenta = new CuentaDAOSQL();
+    private List<Cuenta> cuentasList= cuenta.listarTodasLasCuentas();
     //Constructor
 
     public Controlador(ModeloTabla modeloTabla, VistaCuentas vista) {
@@ -25,11 +28,12 @@ public class Controlador {
 
     private void registrarEventos() {
         vista.getButtonAdd().addActionListener(e->{
-        //   cuenta.anadirCuentaABaseDatos();
+          cuenta.anadirCuentaABaseDatos();
         });
         vista.getButtonDelete().addActionListener(e->{
             int row = vista.getMainTable().getSelectedRow();
-          //  cuenta.eliminarCuentaBaseDatos(String.valueOf(row));
+           ObjectId id= cuentasList.get(row).getId();
+            cuenta.eliminarCuentaBaseDatos(id.toString());
         });
     }
 
