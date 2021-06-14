@@ -62,6 +62,39 @@ public class Controlador {
            ObjectId id= cuentasList.get(row).getId();
             cuenta.eliminarCuentaBaseDatos(id.toString());
         });
+
+        //Evento de actualizacion de cuenta
+        vista.getButtonUpdate().addActionListener(e->{
+            vista.getUpdatePanel().setVisible(true);
+            actualizarCuenta();
+        });
+    }
+
+    private void actualizarCuenta() {
+        vista.getUpdateButtonCancel().addActionListener(e->{
+            vista.getUpdateTextFieldBalance().setText("");
+            vista.getUpdateTextFieldCreditCard().setText("");
+            vista.getUpdateTextFieldName().setText("");
+            vista.getUpdatePanel().setVisible(false);
+        });
+        //Actualizacion de la cuenta en la lista
+        int row = vista.getMainTable().getSelectedRow();
+        ObjectId id= cuentasList.get(row).getId();
+        for (Cuenta cuenta:cuentasList) {
+            if (id == cuenta.getId()) {
+                String creditCard=cuenta.getCreditCard();
+                Double saldo = cuenta.getBalance();
+                String nombre = cuenta.getFullName();
+                vista.getUpdateTextFieldName().setText(creditCard);
+                vista.getUpdateTextFieldBalance().setText(String.valueOf(saldo));
+                vista.getUpdateTextFieldName().setText(nombre);
+
+                // TODO: 14/6/21 Ya estarian mostrados supuestamente los datos de la fila seleccionada
+                // TODO: 14/6/21 queda recoger los datos comparados, ver si son los mismo, e insterar a lista 
+                // TODO: 14/6/21 y ya por ultimo buscarse un metodo para actualizarlo en la base de datos 
+                
+            }
+        }
     }
 
     private void annadirCuenta() {
@@ -78,9 +111,9 @@ public class Controlador {
             Double balance = Double.parseDouble(vista.getTextFieldBalance().getText());
             String fullName= vista.getTextFieldFullName().getText();
             String date = String.format("%d-%d-%d",
-                    LocalDate.now().getDayOfMonth(),
+                    LocalDate.now().getYear(),
                     LocalDate.now().getMonthValue(),
-                    LocalDate.now().getYear());
+                    LocalDate.now().getDayOfMonth());
 
             //Añadimos a la lista de cuentas
             Cuenta cuenta2 = new Cuenta(iban, creditCard, balance
@@ -90,7 +123,7 @@ public class Controlador {
             //Añadimos cuenta a la BD
      long lInicial= collection.countDocuments();
     Document document = new Document();
-            // TODO: 10/6/21 METODO EN BUSQUEDA
+
      document.append("iban", iban);
      document.append("creditCard", creditCard);
      document.append("balance", balance);
@@ -112,6 +145,7 @@ public class Controlador {
         vista.getMainTable().setModel(modelo);
         vista.getMainTable().setRowSorter(sorter);
         vista.getAddPanel().setVisible(false);
+        vista.getUpdatePanel().setVisible(false);
     }
 
 

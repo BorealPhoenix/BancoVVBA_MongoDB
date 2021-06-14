@@ -24,6 +24,19 @@ public class VistaCuentas {
     private JTextField textFieldFullName;
     private JButton buttonCreate;
     private JButton buttonCancel;
+    private JButton buttonUpdate;
+    private JPanel updatePanel;
+    private JTextField ipdateTextFieldIBAN;
+    private JLabel updateCreditCardLabel;
+    private JTextField updateTextFieldCreditCard;
+    private JLabel updateBalanceLabel;
+    private JTextField updateTextFieldBalance;
+    private JLabel updateNameLabel;
+    private JTextField updateTextFieldName;
+    private JLabel updateLabel;
+    private JLabel addLabel;
+    private JButton updateButtonCreate;
+    private JButton updateButtonCancel;
 
     //Getters de los botones y de los TextField y el panel de añadir
         public JButton getButtonAdd() {
@@ -65,6 +78,38 @@ public class VistaCuentas {
         public JPanel getAddPanel() {
             return addPanel;
         }
+
+        public JButton getButtonUpdate() {
+            return buttonUpdate;
+        }
+
+    public JPanel getUpdatePanel() {
+        return updatePanel;
+    }
+
+    public JTextField getIpdateTextFieldIBAN() {
+        return ipdateTextFieldIBAN;
+    }
+
+    public JTextField getUpdateTextFieldCreditCard() {
+        return updateTextFieldCreditCard;
+    }
+
+    public JTextField getUpdateTextFieldBalance() {
+        return updateTextFieldBalance;
+    }
+
+    public JTextField getUpdateTextFieldName() {
+        return updateTextFieldName;
+    }
+
+    public JButton getUpdateButtonCreate() {
+        return updateButtonCreate;
+    }
+
+    public JButton getUpdateButtonCancel() {
+        return updateButtonCancel;
+    }
 
     //Arranque de la ventana principal
         public VistaCuentas (){
