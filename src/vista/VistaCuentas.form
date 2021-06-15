@@ -28,6 +28,7 @@
           <component id="12ed0" class="javax.swing.JButton" binding="buttonUpdate">
             <constraints/>
             <properties>
+              <enabled value="true"/>
               <text value="Actualizar"/>
             </properties>
           </component>

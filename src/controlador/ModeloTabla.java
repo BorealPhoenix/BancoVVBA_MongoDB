@@ -13,6 +13,7 @@ public class ModeloTabla extends AbstractTableModel {
 
     public ModeloTabla() {
         listaCuentas = cuenta.listarTodasLasCuentas();
+        fireTableDataChanged();
     }
 
     @Override
@@ -49,6 +50,7 @@ public class ModeloTabla extends AbstractTableModel {
                     celda =listaCuentas.get(row).getDate();
                     break;
             }
+
             return celda;
     }
 
@@ -57,4 +59,5 @@ public class ModeloTabla extends AbstractTableModel {
     public String getColumnName(int column) {
         return COLUMNAS[column];
     }
+
 }

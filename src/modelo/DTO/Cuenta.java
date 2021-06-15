@@ -59,6 +59,20 @@ public class Cuenta {
         return date;
     }
 
+    //setters
+    public void setCreditCard(String creditCard) {
+        this.creditCard = creditCard;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+
     //toString
 
     @Override
