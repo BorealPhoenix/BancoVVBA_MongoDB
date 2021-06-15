@@ -17,8 +17,14 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.function.Consumer;
 
-
+/**
+ * Clase que implementa a la interfaz CuentaDAO, y que a su vez implementa sus metodos
+ * Realmente solo es usado el metodo de borrar cuentas de la BD y la lista
+ * Dado que el resto de metodos estan definidos en la Clase Controlador
+ * Tambien posee el metodo que lista todas las cuentas de la base de datos de MongoDB
+ */
 public class CuentaDAOSQL implements CuentaDAO{
+    //Atributos
     private  static MongoDatabase database;
     private static MongoCollection<Document> collection;
     private static FindIterable<Document> iterDoc;
@@ -27,7 +33,9 @@ public class CuentaDAOSQL implements CuentaDAO{
     private static Controlador controlador;
     private static ModeloTabla modelo;
 
-
+    /**
+     * Arrancamos conexion con la BD
+     */
     static {
         try {
          //   System.out.println(Conexion.getInstance().getDataBase());
@@ -38,7 +46,7 @@ public class CuentaDAOSQL implements CuentaDAO{
         }
     }
 
-
+//Metodo que no se si esta operativo que añade una cuenta a nuestra lista
     @Override
     public boolean anadirCuentaABaseDatos(Cuenta cuenta) {
       int lInicial=  cuentaList.size();
@@ -50,16 +58,24 @@ public class CuentaDAOSQL implements CuentaDAO{
         return lInicial-lFinal!=0;
     }
 
+    //Metodo de modificar obsoletp
     @Override
     public boolean modificarCuentaBaseDatos() {
         return false;
     }
 
+    /**
+     * Metodo funcional de borrado de cuenta tanto en la lista como en la BD
+     * @param id
+     * @return true si lo borra, false si no
+     */
     @Override
     public boolean eliminarCuentaBaseDatos(String id) {
         long inicial = collection.countDocuments();
         int listaInicial = cuentaList.size();
         long ultimo=0;
+
+        //Comprobamos si el id pasado por parametro coincide con alguno de alguna cuenta
         for (Cuenta cuenta:cuentaList) {
             if (cuenta.getId().toString().equals(id)){
 
@@ -82,6 +98,10 @@ public class CuentaDAOSQL implements CuentaDAO{
         return inicial-ultimo !=0;
     }
 
+    /**
+     * Metodo que lista todas las cuentas de la BD (usado como apoyo)
+     * @return cuentaList, una lista con todas las cuentas
+     */
     @Override
     public List<Cuenta> listarTodasLasCuentas() {
 

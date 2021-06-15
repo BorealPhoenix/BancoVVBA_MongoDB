@@ -4,6 +4,10 @@ import org.bson.types.ObjectId;
 
 import java.util.Objects;
 
+/**
+ * Clase que define como es una cuenta, con sus atributos
+ * getters, setters, toString, y equals y hashcode
+ */
 public class Cuenta {
     //Atributos
     private ObjectId id;
