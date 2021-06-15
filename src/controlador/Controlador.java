@@ -118,6 +118,7 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
             nuevoSaldo.equals(saldo)){
         JOptionPane.showMessageDialog(null, "Introduzca Datos Nuevos", "Data Warning",
                 JOptionPane.WARNING_MESSAGE);
+        return;
     }
     else {
         //Actualizamos la lista
