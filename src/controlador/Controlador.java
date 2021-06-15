@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+
 public class Controlador {
     //Atributos
     private ModeloTabla modelo;
@@ -59,8 +60,17 @@ public class Controlador {
         //Evento de Borrado de cuenta
         vista.getButtonDelete().addActionListener(e->{
             int row = vista.getMainTable().getSelectedRow();
-           ObjectId id= cuentasList.get(row).getId();
-            cuenta.eliminarCuentaBaseDatos(id.toString());
+            if (row>=0) {
+                ObjectId id = cuentasList.get(row).getId();
+                cuenta.eliminarCuentaBaseDatos(id.toString());
+                JOptionPane.showMessageDialog(null, "Cuenta borrada con exito", "Delete Confirmed",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+
+            }else {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una linea para poder eliminarla", "Delete Warning",
+                        JOptionPane.WARNING_MESSAGE);
+            }
             modelo.fireTableDataChanged();
         });
 
@@ -70,8 +80,9 @@ public class Controlador {
             if (row>=0) {
                 vista.getUpdatePanel().setVisible(true);
                 actualizarCuenta();
+
             } else {
-JOptionPane.showMessageDialog(null, "Debe seleccionar una linea para poder actualizarla", "Warning",
+JOptionPane.showMessageDialog(null, "Debe seleccionar una linea para poder actualizarla", "Update Warning",
   JOptionPane.WARNING_MESSAGE);
             }
         });
@@ -84,10 +95,12 @@ JOptionPane.showMessageDialog(null, "Debe seleccionar una linea para poder actua
             vista.getUpdateTextFieldName().setText("");
             vista.getUpdatePanel().setVisible(false);
         });
+
         //Actualizacion de la cuenta en la lista
         int row = vista.getMainTable().getSelectedRow();
             Cuenta cuenta = cuentasList.get(row);
             //Mostramos los datos del objeto seleccionado en los campos de texto
+        // Si no se verian en blanco, queda mejor poner el nombre del objeto seleccionado
             String creditCard = cuenta.getCreditCard();
             Double saldo = cuenta.getBalance();
             String nombre = cuenta.getFullName();
@@ -131,6 +144,9 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
             System.out.println("Saldo Actualizado correctamente");
         }
     }
+    JOptionPane.showMessageDialog(null, "Cuenta actualizada con exito", "Update Confirmed",
+            JOptionPane.INFORMATION_MESSAGE);
+    vista.getUpdatePanel().setVisible(false);
 });
 
         }
@@ -146,6 +162,12 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
         vista.getButtonCreate().addActionListener(e->{
             String iban = vista.getTextFieldIBAN().getText();
             String creditCard = vista.getTextFieldcreditCard().getText();
+            if (!vista.getTextFieldBalance().getText().equalsIgnoreCase("null")){
+                JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos", "Adding Error",
+                        JOptionPane.ERROR_MESSAGE);
+                vista.getAddPanel().setVisible(false);
+                controladorAnnadirCuentasVacias();
+            }
             Double balance = Double.parseDouble(vista.getTextFieldBalance().getText());
             String fullName= vista.getTextFieldFullName().getText();
             String date = String.format("%d-%d-%d",
@@ -153,6 +175,16 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
                     LocalDate.now().getMonthValue(),
                     LocalDate.now().getDayOfMonth());
 
+            //Controlamos que no esten los campos de texto vacios
+            if (iban.equalsIgnoreCase("")||
+                creditCard.equalsIgnoreCase("")||
+                fullName.equalsIgnoreCase("")){
+                JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos", "Adding Error",
+                        JOptionPane.ERROR_MESSAGE);
+                vista.getAddPanel().setVisible(false);
+                controladorAnnadirCuentasVacias();
+                return;
+            }
             //Añadimos a la lista de cuentas
             Cuenta cuenta2 = new Cuenta(iban, creditCard, balance
                     , fullName, date);
@@ -173,8 +205,12 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
      if (lInicial-lFinal!=0){
          System.out.println("Account added to the DataBase Successfully");
      }
+            vista.getAddPanel().setVisible(false);
+            JOptionPane.showMessageDialog(null, "Cuenta añadida con exito", "Adding Confirmed",
+                    JOptionPane.INFORMATION_MESSAGE);
         });
     modelo.fireTableDataChanged();
+
     }
 
     //Generamos Tabla
@@ -187,4 +223,10 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
     }
 
 
+    private void controladorAnnadirCuentasVacias (){
+        vista.getTextFieldIBAN().setText("");
+        vista.getTextFieldBalance().setText("");
+        vista.getTextFieldcreditCard().setText("");
+        vista.getTextFieldFullName().setText("");
+    }
 }

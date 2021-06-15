@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import controlador.Controlador;
+import controlador.ModeloTabla;
 import modelo.DTO.Cuenta;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -24,6 +25,8 @@ public class CuentaDAOSQL implements CuentaDAO{
     private static Iterator it;
     private static  List<Cuenta> cuentaList = new ArrayList<>();
     private static Controlador controlador;
+    private static ModeloTabla modelo;
+
 
     static {
         try {

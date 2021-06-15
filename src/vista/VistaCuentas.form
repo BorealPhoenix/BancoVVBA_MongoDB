@@ -28,6 +28,7 @@
           <component id="12ed0" class="javax.swing.JButton" binding="buttonUpdate">
             <constraints/>
             <properties>
+              <background color="-9737240"/>
               <enabled value="true"/>
               <text value="Actualizar"/>
             </properties>
@@ -35,6 +36,7 @@
           <component id="d7bbd" class="javax.swing.JButton" binding="buttonAdd">
             <constraints/>
             <properties>
+              <background color="-15287552"/>
               <text value="Añadir"/>
             </properties>
           </component>
@@ -44,6 +46,7 @@
           <component id="1567d" class="javax.swing.JButton" binding="buttonDelete">
             <constraints/>
             <properties>
+              <background color="-2794416"/>
               <text value="Borrar"/>
             </properties>
           </component>
@@ -228,8 +231,8 @@
               <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <foreground color="-15287552"/>
-              <text value="Crear"/>
+              <foreground color="-9737240"/>
+              <text value="Actualizar"/>
             </properties>
           </component>
           <component id="3035f" class="javax.swing.JButton" binding="updateButtonCancel">
