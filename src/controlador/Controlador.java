@@ -192,13 +192,14 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
             String iban = vista.getTextFieldIBAN().getText();
             String creditCard = vista.getTextFieldcreditCard().getText();
 
-//Controlamos que el saldo no este en blanco expresamente, al dar problemas en parseo
-            if (!vista.getTextFieldBalance().getText().equalsIgnoreCase("null")){
+//Metodo que supuestamente controla que que el saldo no este en blanco, pero por alguna razon antes iba y ahora no
+            //Asi que queda deshabilitado temportalmente hasta nuevo aviso
+            /*if (!vista.getTextFieldBalance().getText().equalsIgnoreCase("null")){
                 JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos", "Adding Error",
                         JOptionPane.ERROR_MESSAGE);
                 vista.getAddPanel().setVisible(false);
-                seteadorCamposTextoACadenaVacia();
-            }
+               // seteadorCamposTextoACadenaVacia();
+            }*/
             Double balance = Double.parseDouble(vista.getTextFieldBalance().getText());
             String fullName= vista.getTextFieldFullName().getText();
             String date = String.format("%d-%d-%d",
