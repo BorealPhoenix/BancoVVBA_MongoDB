@@ -34,7 +34,7 @@ public class Conexion {
     }
 
     /**
-     * Comprobador de que solo se cree una conexion para acceder a la base de datos
+     * Comprobador de que solo se cree una conexion para acceder a la base de datos.
      * @return conexion
      * @throws SQLException
      * @throws IOException

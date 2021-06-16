@@ -100,7 +100,7 @@ public class CuentaDAOSQL implements CuentaDAO{
 
     /**
      * Metodo que lista todas las cuentas de la BD (usado como apoyo)
-     * @return cuentaList, una lista con todas las cuentas
+     * @return cuentaList, una lista con todas las cuentas.
      */
     @Override
     public List<Cuenta> listarTodasLasCuentas() {

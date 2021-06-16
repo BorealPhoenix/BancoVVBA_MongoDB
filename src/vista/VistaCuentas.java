@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Clase que crea el id automaticamente con todos los datos de la interfaz grafica
+ * Clase que crea el id automaticamente con todos los datos de la interfaz grafica.
  */
 public class VistaCuentas {
     //Atributos

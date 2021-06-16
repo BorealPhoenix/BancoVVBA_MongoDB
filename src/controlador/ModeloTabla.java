@@ -33,7 +33,7 @@ public class ModeloTabla extends AbstractTableModel {
         return COLUMNAS.length;
     }
 
-    //Asignamos valores segun fila y columna
+    //Asignamos valores segun fila y columna.
     @Override
     public Object getValueAt(int row, int column) {
             Object celda = null;

@@ -178,7 +178,7 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
     /**
      * Metodo que responde cuando le das al boton de añadir
      * Controla 2 botones a su vez, el boton de cancelar y
-     * el boton de añadir a la BD y a la lista
+     * el boton de añadir a la BD y a la lista.
      */
     private void annadirCuenta() {
         //BOTON CANCELAR: Campos de texto a cadena vacia y fuera panel
