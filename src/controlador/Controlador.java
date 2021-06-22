@@ -222,26 +222,17 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
                     , fullName, date);
             cuenta.anadirCuentaABaseDatos(cuenta2);
 
-            //Añadimos cuenta a la BD
-     long lInicial= collection.countDocuments();
-    Document document = new Document();
 
-     document.append("iban", iban);
-     document.append("creditCard", creditCard);
-     document.append("balance", balance);
-     document.append("fullName", fullName);
-     document.append("date", date);
-     collection.insertOne(document);
-     long lFinal=collection.countDocuments();
 
 //Si el tamaño inicial es distinto del tamaño final, es que ha cambiado la lista
-     if (lInicial-lFinal!=0){
+     /*if (lInicial-lFinal!=0){
          System.out.println("Account added to the DataBase Successfully");
      }
             vista.getAddPanel().setVisible(false);
             JOptionPane.showMessageDialog(null, "Cuenta añadida con exito", "Adding Confirmed",
-                    JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.INFORMATION_MESSAGE);*/
         });
+
 
         //Actualizamos la lista en la interfaz grafica con este metodo
     modelo.fireTableDataChanged();

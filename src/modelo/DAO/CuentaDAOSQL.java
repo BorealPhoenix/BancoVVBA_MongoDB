@@ -49,9 +49,17 @@ public class CuentaDAOSQL implements CuentaDAO{
 //Metodo que no se si esta operativo que añade una cuenta a nuestra lista
     @Override
     public boolean anadirCuentaABaseDatos(Cuenta cuenta) {
-      int lInicial=  cuentaList.size();
-      cuentaList.add(cuenta);
-        int lFinal=  cuentaList.size();
+        //Añadimos cuenta a la BD
+        long lInicial= collection.countDocuments();
+        Document document = new Document();
+        document.append("iban", cuenta.getIban());
+        document.append("creditCard", cuenta.getCreditCard());
+        document.append("balance", cuenta.getBalance());
+        document.append("fullName", cuenta.getFullName());
+        document.append("date", cuenta.getDate());
+        collection.insertOne(document);
+        long lFinal=collection.countDocuments();
+        listarTodasLasCuentas();
         if (lInicial-lFinal!=0){
             System.out.println("Added new account to the list successfully");
         }
@@ -72,17 +80,16 @@ public class CuentaDAOSQL implements CuentaDAO{
     @Override
     public boolean eliminarCuentaBaseDatos(String id) {
         long inicial = collection.countDocuments();
-        int listaInicial = cuentaList.size();
+        int longListaInicial = cuentaList.size();
         long ultimo=0;
-
+        listarTodasLasCuentas();
         //Comprobamos si el id pasado por parametro coincide con alguno de alguna cuenta
         for (Cuenta cuenta:cuentaList) {
             if (cuenta.getId().toString().equals(id)){
-
                 //Borrado de la lista de cuentas
                 cuentaList.remove(cuenta);
                 int listaFinal= cuentaList.size();
-                if (listaInicial-listaFinal!=0){
+                if (longListaInicial-listaFinal!=0){
                     System.out.println("Eliminado correctamente de la lista de cuentas");
                 } else System.out.println("Fallo al eliminar de la Lista");
 
