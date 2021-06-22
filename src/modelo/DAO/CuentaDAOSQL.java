@@ -82,7 +82,6 @@ public class CuentaDAOSQL implements CuentaDAO{
         long inicial = collection.countDocuments();
         int longListaInicial = cuentaList.size();
         long ultimo=0;
-        listarTodasLasCuentas();
         //Comprobamos si el id pasado por parametro coincide con alguno de alguna cuenta
         for (Cuenta cuenta:cuentaList) {
             if (cuenta.getId().toString().equals(id)){
@@ -92,15 +91,16 @@ public class CuentaDAOSQL implements CuentaDAO{
                 if (longListaInicial-listaFinal!=0){
                     System.out.println("Eliminado correctamente de la lista de cuentas");
                 } else System.out.println("Fallo al eliminar de la Lista");
-
                 //Borrado de la BD
                 collection.deleteOne(new Document("_id", new ObjectId(id)));
                 ultimo = collection.countDocuments();
                 if (inicial-ultimo!=0){
                     System.out.println("Eliminado Correctamente de la BD");
                 } else System.out.println("Fallo al eliminar de la BD");
+                listarTodasLasCuentas();
                 break;
             }
+
         }
         return inicial-ultimo !=0;
     }

@@ -70,18 +70,20 @@ public class Controlador {
 
         //Evento de Borrado de cuenta
         vista.getButtonDelete().addActionListener(e->{
+            cuentasList= cuenta.listarTodasLasCuentas();
             int row = vista.getMainTable().getSelectedRow();
             if (row>=0) {
                 ObjectId id = cuentasList.get(row).getId();
                 cuenta.eliminarCuentaBaseDatos(id.toString());
                 JOptionPane.showMessageDialog(null, "Cuenta borrada con exito", "Delete Confirmed",
                         JOptionPane.INFORMATION_MESSAGE);
+                modelo.fireTableDataChanged();
 
             }else {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar una linea para poder eliminarla", "Delete Warning",
                         JOptionPane.WARNING_MESSAGE);
             }
-            modelo.fireTableDataChanged();
+
         });
 
         //Evento de actualizacion de cuenta
@@ -181,6 +183,7 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
      * el boton de añadir a la BD y a la lista.
      */
     private void annadirCuenta() {
+
         //BOTON CANCELAR: Campos de texto a cadena vacia y fuera panel
         vista.getButtonCancel().addActionListener(e->{
             seteadorCamposTextoACadenaVacia();
@@ -225,12 +228,12 @@ vista.getUpdateButtonCreate().addActionListener(actionEvent -> {
 
 
 //Si el tamaño inicial es distinto del tamaño final, es que ha cambiado la lista
-     /*if (lInicial-lFinal!=0){
+
          System.out.println("Account added to the DataBase Successfully");
-     }
+
             vista.getAddPanel().setVisible(false);
             JOptionPane.showMessageDialog(null, "Cuenta añadida con exito", "Adding Confirmed",
-                    JOptionPane.INFORMATION_MESSAGE);*/
+                    JOptionPane.INFORMATION_MESSAGE);
         });
 
 
